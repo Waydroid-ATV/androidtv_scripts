@@ -19,5 +19,5 @@ sudo ./install-opengapps.sh <path to OpenGApps flashable ZIP>
 
 ### Usage (for Android TV 13)
 ```shell
-sudo ./install-mindthegapps.sh <path to MindTheGapps flashable ZIP>
+sudo ./install-mindthegapps.sh
 ```
