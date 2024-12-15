@@ -7,6 +7,11 @@ if [ -z "${1:-}" ]; then
   exit 1
 fi
 
+if [[ "${EUID}" != '0' ]]; then
+  echo -e '\e[1;31mPlease run this script as root.\e[0m'
+  exit 1
+fi
+
 if [ ! -f "${1}" ]; then
   echo -e "\e[1;31mError: file ${1} does not exist!\e[0m"
   exit 1
