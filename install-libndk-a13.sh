@@ -52,8 +52,8 @@ cd "${TMPDIR}"
 trap "rm -rf '${TMPDIR}'" EXIT
 
 echo '[+] Downloading libndk library...'
-curl -#L "${WIDEVINE_PREBUILT[0]}" -o libndk.tar.gz
-sha256sum -c - <<< "${WIDEVINE_PREBUILT[1]} libndk.tar.gz"
+curl -#L "${NDK_PREBUILT[0]}" -o libndk.tar.gz
+sha256sum -c - <<< "${NDK_PREBUILT[1]} libndk.tar.gz"
 
 echo '[+] Decompressing libndk library...'
 tar -x --strip-components=1 -f libndk.tar.gz
@@ -66,7 +66,7 @@ for file in "${FILES[@]}"; do
 done
 
 echo '[+] Updating props...'
-if grep -q '\[properties\]'; then
+if grep -q '\[properties\]' /var/lib/waydroid/waydroid.cfg; then
   sed -i "s#\[properties\]#${PROP}#" /var/lib/waydroid/waydroid.cfg
 else
   echo -e "${PROP}\n" >> /var/lib/waydroid/waydroid.cfg
