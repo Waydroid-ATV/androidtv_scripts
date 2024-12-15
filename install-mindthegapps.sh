@@ -30,8 +30,14 @@ unzip -q "${ZIPFILE}" -d installer
 
 echo '[+] Copying files...'
 
-cp -r installer/system/system/ "${DESTDIR}/system" && rm -r installer/system/system
+mkdir -p "${DESTDIR}/system"
+cp -r installer/system/system/* "${DESTDIR}/system" && rm -r installer/system/system
 cp -r installer/system/* "${DESTDIR}/system"
+
+# whiteout TVLauncherNoGMS
+echo '[+] Disabling LineageOS built-in launcher...'
+mkdir -p "${DESTDIR}/system/product/priv-app/"
+mknod "${DESTDIR}/system/product/priv-app/TVLauncherNoGMS" c 0 0
 
 echo -e '\e[1;34m'
 cat <<EOT

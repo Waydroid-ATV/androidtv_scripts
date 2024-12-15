@@ -18,11 +18,10 @@ if [ ! -d "${2:-/var/lib/waydroid/overlay}" ]; then
 fi
 
 ZIPFILE="$(readlink -f "${1}")"
-DESTDIR="$(readlink -f "${2:-/var/lib/waydroid/overlay}"/system)"
+DESTDIR="$(readlink -f "${2:-/var/lib/waydroid/overlay}")"
 
 # blacklist for skip convert
 BLACKLIST=(
-  googleonetimeinitializer-all
   packageinstallergoogle-all
 )
 
@@ -45,9 +44,14 @@ for c in Core GApps; do
     fi
 
     echo "[+] Converting ${pkgName}..."
-    tar -x --strip-components=2 -f "${archive}" -C "${DESTDIR}"
+    tar -x --strip-components=2 -f "${archive}" -C "${DESTDIR}/system"
   done
 done
+
+# whiteout TVLauncherNoGMS
+echo '[+] Disabling LineageOS built-in launcher...'
+mkdir -p "${DESTDIR}/system/product/priv-app/"
+mknod "${DESTDIR}/system/product/priv-app/TVLauncherNoGMS" c 0 0
 
 echo -e '\e[1;34m'
 cat <<EOT
