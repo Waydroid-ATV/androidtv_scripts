@@ -4,8 +4,8 @@ TMPDIR=/tmp/widevine-installer
 DESTDIR="$(readlink -f "${1:-/var/lib/waydroid/overlay}")"
 
 WIDEVINE_PREBUILT=(
-  'https://github.com/supremegamers/vendor_google_proprietary_widevine-prebuilt/archive/a8524d608431573ef1c9313822d271f78728f9a6.tar.gz'
-  'a8954ce99e74f48fcd10bc41544c70e5116ca6a6d0dfed6da5426814ca51f7ae'
+  'https://github.com/Waydroid-ATV/vendor_google_proprietary_widevine-prebuilt/archive/08d60acb521734bfaed4eddb8ccc66c7ac6b6e1d.tar.gz'
+  '7ab48f84b8eb45b0c79485f8a99ae9c0106b77d3ee64b0b42eca658578c18ec6'
 )
 
 if [[ "${1:-}" == '-h' || "${1:-}" == '--help' ]]; then
@@ -32,7 +32,10 @@ tar -x --strip-components=1 -f widevine.tar.gz
 
 echo '[+] Copying files...'
 mkdir -p "${DESTDIR}/vendor"
-rm -f prebuilts/{lib,lib64}/libprotobuf-cpp-{full,lite}-3.9.1.so
 cp -r prebuilts/* "${DESTDIR}/vendor"
+
+echo '[+] Fixing runtime dependency...'
+ln -s libprotobuf-cpp-lite-3.9.1.so "${DESTDIR}/vendor/lib/libprotobuf-cpp-lite.so"
+ln -s libprotobuf-cpp-lite-3.9.1.so "${DESTDIR}/vendor/lib64/libprotobuf-cpp-lite.so"
 
 echo -e '\e[1;34mAll done!\e[0m'
