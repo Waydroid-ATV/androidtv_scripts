@@ -66,10 +66,12 @@ for file in "${FILES[@]}"; do
 done
 
 echo '[+] Updating props...'
-if grep -q '\[properties\]' /var/lib/waydroid/waydroid.cfg; then
-  sed -i "s#\[properties\]#${PROP}#" /var/lib/waydroid/waydroid.cfg
-else
-  echo -e "${PROP}\n" >> /var/lib/waydroid/waydroid.cfg
+if ! grep -q 'libndk_translation.so' /var/lib/waydroid/waydroid.cfg; then
+  if grep -q '\[properties\]' /var/lib/waydroid/waydroid.cfg; then
+    sed -i "s#\[properties\]#${PROP}#" /var/lib/waydroid/waydroid.cfg
+  else
+    echo -e "${PROP}\n" >> /var/lib/waydroid/waydroid.cfg
+  fi
 fi
 
 echo -e '\e[1;34mAll done!\e[0m'
