@@ -21,21 +21,6 @@ ro.ndk_translation.version = 0.2.3\n\
 ro.dalvik.vm.isa.arm = x86\n\
 ro.dalvik.vm.isa.arm64 = x86_64"
 
-FILES=(
-  bin/arm
-  bin/arm64
-  bin/ndk_translation_program_runner_binfmt_misc
-  bin/ndk_translation_program_runner_binfmt_misc_arm64
-  etc/binfmt_misc
-  etc/ld.config.arm.txt
-  etc/ld.config.arm64.txt
-  etc/init/ndk_translation.rc
-  lib/arm
-  lib64/arm64
-  lib/libndk*
-  lib64/libndk*
-)
-
 if [[ "${1:-}" == '-h' || "${1:-}" == '--help' ]]; then
   echo 'Usage: ./install-libndk-a13.sh [optional: destination]'
   exit 1
@@ -60,10 +45,7 @@ tar -x --strip-components=1 -f libndk.tar.gz
 
 echo '[+] Copying files...'
 mkdir -p "${DESTDIR}/system"
-
-for file in "${FILES[@]}"; do
-  cp -r prebuilts/${file} "${DESTDIR}/system"
-done
+cp -r prebuilts/* "${DESTDIR}/system"
 
 echo '[+] Updating props...'
 if ! grep -q 'libndk_translation.so' /var/lib/waydroid/waydroid.cfg; then
