@@ -8,7 +8,7 @@ sudo ./install-widevine-a13
 ## ARM compatibility layer installer (Android TV 13 only)
 ### Usage
 ```shell
-sudo ./install-libndk-a13.sh
+sudo ./install-libhoudini-a13.sh
 ```
 ---
 ## GApps installer
