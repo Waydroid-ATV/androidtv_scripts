@@ -45,6 +45,8 @@ ro.dalvik.vm.isa.arm = x86
 ro.dalvik.vm.isa.arm64 = x86_64
 ro.enable.native.bridge.exec = 1
 ro.enable.native.bridge.exec64 = 1
+ro.vendor.enable.native.bridge.exec = 1
+ro.vendor.enable.native.bridge.exec64 = 1
 ro.dalvik.vm.native.bridge = libhoudini.so
 EOT
 echo -e '\e[0m'
